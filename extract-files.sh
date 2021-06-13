@@ -50,6 +50,10 @@ function blob_fixup() {
             "${PATCHELF}" --set-soname keystore.msm8937.so "${2}"
             ;;
 
+        vendor/lib/libjustshoot.so)
+            patchelf --add-needed libjustshoot_shim.so "${2}"
+            ;;
+
         vendor/lib/libmot_gpu_mapper.so | vendor/lib/libmmcamera_vstab_module.so)
             sed -i "s/libgui/libwui/" "${2}"
             ;;
