@@ -6,3 +6,5 @@ allow mm-qcamerad sysfs_laser:file rw_file_perms;
 allow mm-qcamerad vendor_data_file:dir r_dir_perms;
 
 allow mm-qcamerad fwk_sensor_hwservice:hwservice_manager find;
+
+set_prop(mm-qcamerad, persist_camera_prop)
