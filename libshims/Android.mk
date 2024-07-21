@@ -14,15 +14,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-# Camera
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := justshoot_shim.cpp
-LOCAL_SHARED_LIBRARIES := libutils
-LOCAL_MODULE := libjustshoot_shim
-LOCAL_MODULE_TAGS := optional
-LOCAL_VENDOR_MODULE := true
-include $(BUILD_SHARED_LIBRARY)
-
 # RIL
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := strdup16to8.cpp
@@ -34,8 +25,8 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := libqsap_shim.c
+LOCAL_HEADER_LIBRARIES := libqsap_headers
 LOCAL_SHARED_LIBRARIES := libqsap_sdk liblog libcutils libutils
-LOCAL_C_INCLUDES := $(TOP)/system/qcom/softap/sdk
 LOCAL_MODULE := libqsapshim
 LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true

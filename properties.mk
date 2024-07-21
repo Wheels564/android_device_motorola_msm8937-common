@@ -41,10 +41,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=smd
+    vendor.qcom.bluetooth.soc=pronto
 
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    vendor.bluetooth.soc=smd
+# Boot
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.vendor.shutdown.waittime=500
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -52,6 +53,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.camera.display.umax=1920x1080 \
     persist.vendor.camera.display.lmax=1280x720 \
     persist.vendor.camera.HAL3.enabled=1 \
+    persist.camera.HAL3.enabled=1 \
     persist.vendor.qti.telephony.vt_cam_interface=1
 
 # Charger
@@ -66,8 +68,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.vendor.cne.feature=1
 
+# Crypto
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.crypto.volume.filenames_mode=aes-256-cts
+
 # Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat64.enabled=true \
     dalvik.vm.heapstartsize=16m \
     dalvik.vm.heapgrowthlimit=256m \
     dalvik.vm.heapsize=512m \
@@ -85,7 +92,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.hwc_set_default_colormode=true \
     ro.vendor.display.cabl=0 \
-    vendor.display.enable_default_color_mode=1
+    vendor.display.disable_rotator_downscale=1 \
+    vendor.display.enable_default_color_mode=1 \
+    ro.config.avoid_gfx_accel=true \
+    ro.vendor.qti.am.reschedule_service=true \
+    vendor.gralloc.disable_ahardware_buffer=1
 
 # Fingerprint
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -105,9 +116,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=0 \
     debug.enable.sglscale=1 \
     debug.gralloc.gfx_ubwc_disable=0 \
-    debug.sf.enable_hwc_vds=1 \
+    debug.sf.enable_hwc_vds=0 \
     debug.sf.hw=0 \
+    debug.cpurend.vsync=false \
+    debug.sf.disable_client_composition_cache=1 \
     debug.sf.latch_unsignaled=1 \
+    debug.sf.enable_gl_backpressure=1 \
+    debug.renderengine.backend=skiaglthreaded \
+    ro.hardware.egl=adreno \
+    ro.hardware.vulkan=adreno \
     debug.sf.recomputecrop=0 \
     dev.pm.dyn_samplingrate=1 \
     persist.hwc.mdpcomp.enable=true \
@@ -118,7 +135,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.force_hwc_copy_for_virtual_displays=true \
-    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
     ro.surface_flinger.max_virtual_display_dimension=4096 \
     ro.surface_flinger.use_color_management=true
 
@@ -139,7 +155,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.vendor.qti.sys.fw.bg_apps_limit=60
+    ro.vendor.qti.sys.fw.bg_apps_limit=60 \
+    ro.vendor.perf.scroll_opt=true
 
 # QTI
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -178,13 +195,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.qcril_uim_vcc_feature=1 \
     persist.vendor.radio.relay_oprt_change=1 \
     persist.vendor.radio.sw_mbn_update=1 \
-    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
     ro.build.vendorprefix=/vendor \
-    ro.telephony.iwlan_operation_mode=legacy
+    ro.telephony.iwlan_operation_mode=legacy \
+    vendor.rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ril.subscription.types=NV,RUIM \
-    telephony.lteOnCdmaDevice=1 \
+    telephony.lteOnCdmaDevice=1
 
 # Sensors
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -220,3 +237,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wi-Fi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+# Smoothens UI
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.service.lgospd.enable=0 \
+    persist.service.pcsync.enable=0
+
+# Blur
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.launcher.blur.appLaunch=0
